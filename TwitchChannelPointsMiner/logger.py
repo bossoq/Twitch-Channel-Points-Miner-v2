@@ -2,6 +2,7 @@ import logging
 import os
 import platform
 import queue
+import sys
 from datetime import datetime
 from logging.handlers import QueueHandler, QueueListener, TimedRotatingFileHandler
 from pathlib import Path
@@ -169,7 +170,7 @@ def configure_loggers(username, settings):
     # Send log messages to another thread through the queue
     root_logger.addHandler(queue_handler)
 
-    console_handler = logging.StreamHandler()
+    console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setLevel(settings.console_level)
     console_handler.setFormatter(
         GlobalFormatter(
